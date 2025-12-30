@@ -1,7 +1,5 @@
 # RideShare (Carpooling MVP for Nigeria)
 
-[Video Demo](https://www.youtube.com/watch?v=hDBv4IkwuWM)
-
 ## Overview
 
 RideShare is a carpooling-focused rideshare MVP built to help users **share trips with people heading in the same direction**, reducing individual transport costs.
@@ -15,14 +13,12 @@ Despite several constraints (API restrictions, billing limitations), the project
 ## Technologies Used
 
 ### Frontend
-
 - React Native (Expo)
 - React Native Maps
 - React Query
 - Expo Notifications
 
 ### Backend
-
 - FastAPI
 - JWT Authentication
 - PostgreSQL
@@ -30,7 +26,6 @@ Despite several constraints (API restrictions, billing limitations), the project
 - OpenRouteService (ORS) API
 
 ### Infrastructure & Utilities
-
 - Redis GeoHash / GeoRadius
 - Rate Limiting Middleware
 - Structured Logging
@@ -41,7 +36,6 @@ Despite several constraints (API restrictions, billing limitations), the project
 ## Key Challenges & Design Decisions
 
 ### 1. Uber API Restrictions
-
 The original plan involved leveraging Uber’s API to enhance routing and pricing. However, Uber had previously disabled access for this type of use due to abuse.
 
 While this reduced the app’s potential feature set, the project was still completed to validate the **carpooling logic, matching algorithms, and system architecture**.
@@ -49,18 +43,15 @@ While this reduced the app’s potential feature set, the project was still comp
 ---
 
 ### 2. Maps & Routing Without Google Maps
-
 Due to card and billing limitations at the time, the **Google Maps API** could not be used.
 
 **Solution:**  
 Switched to **OpenRouteService (ORS)** for:
-
 - Place autocomplete (typing suggestions)
 - Driving route generation
 - Route distance and duration
 
 Later, all ORS API calls were **moved entirely to the backend** to:
-
 - Protect private API keys
 - Centralize request handling
 - Enable caching and rate limiting
@@ -70,7 +61,6 @@ Later, all ORS API calls were **moved entirely to the backend** to:
 ## Core Features
 
 ### Authentication & Security
-
 - JWT-based authentication
 - Password hashing
 - Dependency injection for database sessions and current user
@@ -79,7 +69,6 @@ Later, all ORS API calls were **moved entirely to the backend** to:
 ---
 
 ### Trip Creation & Routing
-
 - Location search with typing suggestions via ORS
 - Fetching driving route coordinates for trips
 - Displaying routes on the map using:
@@ -90,7 +79,6 @@ Later, all ORS API calls were **moved entirely to the backend** to:
 ---
 
 ### Performance Optimizations
-
 - Route caching with Redis to reduce repeated ORS calls
 - API rate limiting via middleware
 - Centralized logging for debugging and monitoring
@@ -100,16 +88,13 @@ Later, all ORS API calls were **moved entirely to the backend** to:
 ### Trip Matching System
 
 #### Geospatial Filtering
-
 - Redis GeoHash and GeoRadius queries used to find nearby trips efficiently
 
 #### Route Similarity
-
 - Hausdorff distance algorithm applied to route coordinates
 - Trips considered similar if deviation is less than 1000 meters
 
 #### Matching Flow
-
 - `get_matches` endpoint returns compatible trips
 - Frontend uses React Query to poll for matches every 1 minute
 - Users receive push notifications when matching trips are found
@@ -117,14 +102,12 @@ Later, all ORS API calls were **moved entirely to the backend** to:
 ---
 
 ### Notifications
-
 - Implemented using Expo Notifications
 - Alerts users when a matching trip becomes available or is pending
 
 ---
 
 ### Maintenance & Cleanup
-
 - Automated routine deletes stale trips every 10 minutes
 - Keeps Redis and database entries fresh and relevant
 
@@ -141,7 +124,6 @@ Later, all ORS API calls were **moved entirely to the backend** to:
 ## Status
 
 This project is a functional MVP focused on:
-
 - Backend robustness
 - Geospatial data handling
 - Performance optimization
